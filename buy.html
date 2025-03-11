@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doom Predictor - Buy Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="buy.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+        background-color: #121212;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 400px;
+        width: 100%;
+        background: #1e1e1e;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5);
+    }
+
+    h1 {
+        color: red;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+        background: #2a2a2a;
+        color: white;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background-color: darkred;
+    }
+
+    .qr-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: gray;
+        /* Green */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+
+    .qr-btn:hover {
+        background-color: darkred;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            max-width: 90%;
+        }
+    }
+</style>
+
+<script>
+    (function () {
+        emailjs.init("lXPpqD-qVLJyZ0aaJ"); // Your EmailJS Public Key
+    })();
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const reference = document.getElementById('reference').value.trim();
+        const message = document.querySelector('.message');
+        const button = document.querySelector('.btn');
+
+        // Validation rules
+        const usernameRegex = /^[A-Za-z]{4,12}$/;
+        const passwordRegex = /^[A-Za-z0-9]{8,18}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!usernameRegex.test(username)) {
+            showMessage("Username must be 4-12 letters only!", "error");
+            return;
+        }
+
+        if (!passwordRegex.test(password)) {
+            showMessage("Password must be 8-18 characters (letters & numbers only)!", "error");
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            showMessage("Enter a valid email address!", "error");
+            return;
+        }
+
+        if (reference === "") {
+            showMessage("Reference number is required!", "error");
+            return;
+        }
+
+        button.textContent = "Processing...";
+        button.disabled = true;
+
+        // Send email via EmailJS
+        emailjs.send("service_4cbsl6m", "template_2bwpxqb", {
+            username: username,
+            password: password,
+            email: email,
+            reference: reference
+        }).then(function (response) {
+            console.log("Email sent successfully:", response);
+            showMessage("Success! Wait for confirmation.", "success");
+        }).catch(function (error) {
+            console.error("EmailJS Error:", error);
+            showMessage("Error sending email. Check console for details.", "error");
+        }).finally(() => {
+            button.textContent = "Submit";
+            button.disabled = false;
+        });
+    }
+
+    function showMessage(text, type) {
+        const message = document.querySelector('.message');
+        message.textContent = text;
+        message.classList.remove("error", "success");
+        message.classList.add(type);
+        message.style.display = "block";
+    }
+    function handleQR() {
+        window.location.href = "qr.html";
+    }
+
+
+
+</script>
+
+<body>
+    <div class="container">
+        <h1>Buy an Account</h1>
+        <h3>Fill out the Form</h3>
+        <div class="input-group">
+            <form onsubmit="handleSubmit(event)">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="text" id="reference" placeholder="Reference Number" required>
+                <button type="button" class="qr-btn" onclick="handleQR()">QR</button><br><br>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <p class="message"></p>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doom Predictor - Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="predictor.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Doom Predictor</h1>
+        <h3>Make sure you Input the correct Details</h3>
+        <div class="input-group">
+            <input type="text" id="clientSeed" placeholder="Active Client Seed" maxlength="100">
+        </div>
+        <div class="input-group">
+            <input type="text" id="serverSeed" placeholder="Active Server Seed (Hashed)" maxlength="100">
+        </div>
+        <button class="btn" onclick="startPrediction()">Start</button><br><br>
+        <h3>Success Rates are Between 99.19999% - 99.99998%</h3>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script src="predictor.js"></script>
+
+</body>
+
+</html>
