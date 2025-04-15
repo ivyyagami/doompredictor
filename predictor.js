@@ -16,7 +16,7 @@ function startPrediction() {
 
     // Simulate a 2-second loading effect
     setTimeout(() => {
-        fetch('https://predictor-py.onrender.com', {  // NEW: Hosted API
+        fetch('https://doompredictor.onrender.com', {  // NEW: Hosted API
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
